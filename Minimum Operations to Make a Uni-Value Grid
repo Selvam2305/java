@@ -1,0 +1,46 @@
+class Solution {
+    public int minOperations(int[][] grid, int x) {
+        int left = grid[0][0];
+        int right = grid[0][0];
+        int counter[] = new int[10001];
+        int mod = left%x;
+        for(int i = 0;i < grid.length;i++){
+            for(int j = 0;j < grid[0].length;j++){
+                counter[grid[i][j]]++;
+                left = Math.min(left, grid[i][j]);
+                right = Math.max(right, grid[i][j]);
+                if(mod != grid[i][j]%x)
+                    return -1;
+                
+            }
+        }
+        // make everything as left
+        int count = 0;
+        int op = 0;
+        int rightToLeft[] = new int[10001];
+        // System.out.printf("Right To left: \n");
+        for(int i = right;i>= left;i-=x){            
+            op += count;
+            count += counter[i];
+            rightToLeft[i] = op;
+            // System.out.printf("%d: %d\n", i, op);
+        }
+        int leftToRight[] = new int[10001];
+        count = 0;
+        op = 0;
+        // System.out.printf("Left to Right: \n");
+        for(int i = left;i <= right;i+=x){
+            op += count;
+            count += counter[i];
+            leftToRight[i] = op;
+            // System.out.printf("%d: %d\n", i, op);
+        }
+        int min = Integer.MAX_VALUE;
+        for(int i = left;i <= right;i+=x){
+            if(counter[i] != 0){
+                min = Math.min(leftToRight[i] + rightToLeft[i], min);
+            }
+        }
+        return min;
+    }
+}
