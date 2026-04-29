@@ -1,0 +1,33 @@
+class Solution {
+    public long maximumScore(int[][] grid) {
+        int n = grid.length;
+        long[] dp1 = new long[n];
+        long[] dp2 = new long[n];
+        long res = 0, prev1 = 0, prev2 = 0;
+        int i = 0;
+        while (i < n - 1) {
+            // Process the current column to update the forward DP state
+            long curr = score(grid, dp1, i, prev1, 0, 1, n);
+            // Move the best known result to the previous buffer
+            prev1 = Math.max(res, prev2);
+            // Process the next column in reverse to update the backward DP state
+            prev2 = score(grid, dp2, i + 1, res, n - 1, -1, -1);
+            // Update the global result
+            res = Math.max(prev1, curr);
+            i++;
+        }
+        return Math.max(res, prev2);
+    }
+
+    private long score(int[][] grid, long[] dp, int col, long prev, int row, int dir, int stop) {
+        long max = 0;
+        while (row != stop) {
+            max = Math.max(max, prev);
+            prev = dp[row];
+            max += grid[row][col];
+            dp[row] = max;
+            row += dir;
+        }
+        return max;
+    }
+}
