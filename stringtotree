@@ -1,0 +1,66 @@
+import java.util.*;
+
+public class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    
+    // Constructor
+    TreeNode(int x) { 
+        val = x; 
+    }
+
+    // Your BFS Deserialization logic
+    public static TreeNode deserialize(String data) {
+        if (data.equals("#")) return null;
+
+        String[] values = data.split(",");
+        TreeNode root = new TreeNode(Integer.parseInt(values[0]));
+
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+
+        int i = 1; // Pointer to loop through the values array
+        while (!queue.isEmpty() && i < values.length) {
+            TreeNode parent = queue.poll();
+
+            // Handle Left Child
+            if (!values[i].equals("#")) {
+                TreeNode leftChild = new TreeNode(Integer.parseInt(values[i]));
+                parent.left = leftChild;
+                queue.add(leftChild);
+            }
+            i++; // Move to next value for right child
+
+            // Handle Right Child
+            if (i < values.length && !values[i].equals("#")) {
+                TreeNode rightChild = new TreeNode(Integer.parseInt(values[i]));
+                parent.right = rightChild;
+                queue.add(rightChild);
+            }
+            i++;
+        }
+
+        return root;
+    }
+
+    // === THE FIX ===
+    // Putting the main method strictly inside the TreeNode class 
+    // so the compiler detects it perfectly.
+    public static void main(String[] args) {
+        // Sample serialized BFS level-order string representing:
+        //     1
+        //    / \
+        //   2   3
+        String sampleData = "1,2,3,#,#,#,#"; 
+        
+        // Call the deserialize method
+        TreeNode root = deserialize(sampleData);
+        
+        // Print the outputs to verify success
+        System.out.println("Root node value: " + root.val);
+        System.out.println("Left child value: " + root.left.val);
+        System.out.println("Right child value: " + root.right.val);
+        System.out.println("\n=== Code Exited Successfully ===");
+    }
+}
