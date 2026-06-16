@@ -1,0 +1,91 @@
+import java.util.Scanner;
+import java.util.Arrays;
+
+public class arraymaxsum {
+    
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        arraymaxsum solver = new arraymaxsum();
+        
+        System.out.println("=== Split Array Largest Sum Minimizer ===");
+        
+        // 1. Get the size of the array
+        System.out.print("Enter the number of elements in the array: ");
+        int n = scanner.nextInt();
+        
+        int[] nums = new int[n];
+        
+        // 2. Get the array elements
+        System.out.println("Enter the " + n + " elements (separated by spaces or newlines):");
+        for (int i = 0; i < n; i++) {
+            nums[i] = scanner.nextInt();
+        }
+        
+        // 3. Get the value of k
+        System.out.print("Enter the number of subarrays (k): ");
+        int k = scanner.nextInt();
+        
+        // Validation check for k
+        if (k > n || k <= 0) {
+            System.out.println("Error: k must be between 1 and the total number of elements (" + n + ").");
+            scanner.close();
+            return;
+        }
+        
+        // 4. Calculate and display the result
+        int result = solver.splitArray(nums, k);
+        
+        System.out.println("\n--- Result ---");
+        System.out.println("Your Input Array: " + Arrays.toString(nums));
+        System.out.println("Subarrays (k): " + k);
+        System.out.println("Minimized Largest Sum: " + result);
+        
+        scanner.close(); // Clean up resources
+    }
+
+    // Core logic method
+    public int splitArray(int[] nums, int k) {
+        int low = 0;
+        int high = 0;
+        
+        for (int num : nums) {
+            low = Math.max(low, num);
+            high += num;
+        }
+        
+        int ans = high;
+        
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            
+            if (isPossible(nums, k, mid)) {
+                ans = mid;
+                high = mid - 1; 
+            } else {
+                low = mid + 1;  
+            }
+        }
+        
+        return ans;
+    }
+    
+    private boolean isPossible(int[] nums, int k, int maxSubarraySum) {
+        int subarrayCount = 1;
+        int currentSum = 0;
+        
+        for (int num : nums) {
+            if (currentSum + num <= maxSubarraySum) {
+                currentSum += num;
+            } else {
+                subarrayCount++;
+                currentSum = num;
+                
+                if (subarrayCount > k) {
+                    return false;
+                }
+            }
+        }
+        
+        return true;
+    }
+}
