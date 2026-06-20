@@ -1,0 +1,23 @@
+import java.util.Scanner;
+
+public class countoddeven {
+    public static void main(String[]args){
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int odd = 0,even = 0;
+        for(int i=0;i<n;i++){
+            int num = sc.nextInt();
+            if(num % 2==0){
+                even++;
+            }
+            else{
+                odd++;
+            }
+        }
+            System.out.println("Number Of Evem Numbers : " + even);
+            System.out.println("Number Of Odd Numbers : " + odd);
+
+        
+        sc.close();
+    }
+}
