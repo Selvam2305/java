@@ -1,0 +1,27 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(sc.in);
+        
+        // Read the input positive integer
+        if (sc.hasNextInt()) {
+            int n = sc.nextInt();
+            
+            // Find the number of bits in the binary representation of n
+            int numBits = (int) (Math.log(n) / Math.log(2)) + 1;
+            
+            // Create a bitmask containing all 1s of length 'numBits'
+            // For example, if numBits = 4, (1 << 4) - 1 gives 16 - 1 = 15 (binary 1111)
+            int mask = (1 << numBits) - 1;
+            
+            // Toggle all bits using the XOR operator
+            int result = n ^ mask;
+            
+            // Print the final result
+            System.out.println(result);
+        }
+        
+        sc.close();
+    }
+}
