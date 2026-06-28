@@ -1,0 +1,72 @@
+import java.util.Scanner;
+
+// Your Solution class
+class Solution {
+    public void nextPermutation(int[] nums) {
+        int i = nums.length - 2;
+
+        // Step 1: Find the breaking point
+        while (i >= 0 && nums[i] >= nums[i + 1]) {
+            i--;
+        }
+
+        // Step 2: Find the next best element and swap
+        if (i >= 0) {
+            int j = nums.length - 1;
+            while (nums[j] <= nums[i]) {
+                j--;
+            }
+            swap(nums, i, j);
+        }
+        
+        // Step 3: Reverse the suffix
+        reverse(nums, i + 1, nums.length - 1);
+    }
+
+    private void swap(int[] nums, int i, int j) {
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
+    }
+
+    private void reverse(int[] nums, int start, int end) {
+        while (start < end) {
+            swap(nums, start, end);
+            start++;
+            end--;
+        }
+    }
+}
+
+// Main class to run the program using Scanner
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        // 1. Ask user for the array size
+        System.out.print("Enter the size of the array: ");
+        int size = sc.nextInt();
+
+        int[] nums = new int[size];
+
+        // 2. Populate the array with user inputs
+        System.out.println("Enter " + size + " numbers separated by spaces or newlines:");
+        for (int i = 0; i < size; i++) {
+            nums[i] = sc.nextInt();
+        }
+
+        // 3. Create the Solution object and process the array
+        Solution sol = new Solution();
+        sol.nextPermutation(nums);
+
+        // 4. Print out the modified array (Next Permutation)
+        System.out.print("The next permutation is: ");
+        for (int num : nums) {
+            System.out.print(num + " ");
+        }
+        System.out.println();
+
+        // 5. Close the scanner
+        sc.close();
+    }
+}
