@@ -1,0 +1,49 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.class);
+        
+        // Read input N and S
+        if (!sc.hasNextInt()) return;
+        int n = sc.nextInt();
+        long s = sc.nextLong();
+        
+        // Read the array elements
+        long[] a = new long[n];
+        for (int i = 0; i < n; i++) {
+            a[i] = sc.nextLong();
+        }
+        
+        // Sliding window pointers and current tracking sum
+        int start = 0;
+        long currentSum = 0;
+        boolean found = false;
+        
+        // Traverse through the array using 'end' pointer
+        for (int end = 0; end < n; end++) {
+            currentSum += a[end];
+            
+            // If currentSum exceeds the target S, shrink the window from the left
+            while (currentSum > s && start < end) {
+                currentSum -= a[start];
+                start++;
+            }
+            
+            // Check if we found the target sum
+            if (currentSum == s) {
+                // Converting 0-based indices to 1-based indexing as per requirement
+                System.out.println((start + 1) + " " + (end + 1));
+                found = true;
+                break;
+            }
+        }
+        
+        // If no continuous subarray sums up to S
+        if (!found) {
+            System.out.println("-1");
+        }
+        
+        sc.close();
+    }
+}
