@@ -1,0 +1,27 @@
+import java.util.Scanner;
+
+public class unique {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter a sentence: ");
+        String input = scanner.nextLine().trim(); // .trim() removes accidental start/end spaces
+        scanner.close();
+
+        StringBuilder result = new StringBuilder(input.length());
+        int end = input.length();
+
+        // Scan the string backwards character by character
+        for (int i = input.length() - 1; i >= 0; i--) {
+            // When we find a space, we found the start of a word!
+            if (input.charAt(i) == ' ') {
+                result.append(input, i + 1, end).append(" ");
+                end = i; // Move the end marker to the current space
+            }
+        }
+        
+        // Append the very first word (since there is no space before it)
+        result.append(input, 0, end);
+
+        System.out.println("Optimized Reversed String: " + result.toString());
+    }
+}
