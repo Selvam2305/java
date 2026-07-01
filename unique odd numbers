@@ -1,0 +1,21 @@
+import java.util.HashSet;
+import java.util.Scanner;
+import java.util.Set;
+public class unique {
+public static void main(String[]args){
+    Scanner sc = new Scanner(System.in);
+    Set<Integer> uniqueOdds = new HashSet<>();
+    System.out.print("Enter the Numbers: ");
+    int size = sc.nextInt();
+    System.out.println("enter " + size+ " number");
+    for(int i =0;i<size;i++){
+        int num = sc.nextInt();
+        if(num %2 !=0){
+          uniqueOdds.add(num);
+        }
+    }
+    sc.close();
+      System.out.println("unique odd numbers are :" +uniqueOdds);
+    
+}
+}
