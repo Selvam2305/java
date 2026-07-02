@@ -1,0 +1,31 @@
+import java.util.Scanner;
+
+public class Mainf {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        
+        if (sc.hasNextLine()) {
+            String s = sc.nextLine();
+            
+            // This line removes every single hyphen '-' by replacing it with nothing ""
+            String result = s.replace("-", "");
+            
+            System.out.println(result);
+        }
+        
+        sc.close();
+    }
+}
+
+//place the hypen infront of the string and print
+import java.util .*;
+public class Mainf
+public static void main(String[ ]args){
+Scanner sc = new Scanner(System. in);
+if(sc.hasNextLine()){
+String s = sc.nextLine();
+String alphabets = s.replaceAll("-", "");
+String hypens = "-".repeat (s.length() - alphabets. length());
+System.out.println(hypens + alphabets);
+
+sc.close();
