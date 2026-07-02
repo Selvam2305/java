@@ -1,27 +1,41 @@
 import java.util.Scanner;
 
-public class unique {
+public class Solution {
+    // 1. The entry point Java was missing!
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter a sentence: ");
-        String input = scanner.nextLine().trim(); // .trim() removes accidental start/end spaces
-        scanner.close();
-
-        StringBuilder result = new StringBuilder(input.length());
-        int end = input.length();
-
-        // Scan the string backwards character by character
-        for (int i = input.length() - 1; i >= 0; i--) {
-            // When we find a space, we found the start of a word!
-            if (input.charAt(i) == ' ') {
-                result.append(input, i + 1, end).append(" ");
-                end = i; // Move the end marker to the current space
-            }
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter the String: ");
+        
+        if (sc.hasNextLine()) {
+            String input = sc.nextLine();
+            // Call our optimized function
+            String result = reverseString(input);
+            System.out.println(result);
         }
         
-        // Append the very first word (since there is no space before it)
-        result.append(input, 0, end);
+        sc.close();
+    }
 
-        System.out.println("Optimized Reversed String: " + result.toString());
+    // 2. Your optimized reversal method
+    public static String reverseString(String s) {
+        if (s == null || s.length() <= 1) {
+            return s;
+        }
+
+        char[] chars = s.toCharArray();
+        int left = 0;
+        int right = chars.length - 1;
+
+        while (left < right) {
+            char temp = chars[left];
+            chars[left] = chars[right];
+            chars[right] = temp;
+            
+            left++;
+            right--;
+        }
+        System.out.print("Reversed String: ");
+
+        return new String(chars);
     }
 }
