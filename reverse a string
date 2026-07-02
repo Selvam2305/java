@@ -39,3 +39,51 @@ public class Solution {
         return new String(chars);
     }
 }
+// check whether the number is palindrome or not
+import java.util.Scanner;
+
+public class Solution {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter the String: ");
+        
+        if (sc.hasNextLine()) {
+            String input = sc.nextLine();
+            
+            // 1. Get the reversed string using our optimized method
+            String reversed = reverseString(input);
+            System.out.println("Reversed String: " + reversed);
+            
+            // 2. Check for palindrome by comparing original and reversed strings
+            if (input.equals(reversed)) {
+                System.out.println("Result: It is a Palindrome.");
+            } else {
+                System.out.println("Result: It is NOT a Palindrome.");
+            }
+        }
+        
+        sc.close();
+    }
+
+    // Optimized in-place reversal method
+    public static String reverseString(String s) {
+        if (s == null || s.length() <= 1) {
+            return s;
+        }
+
+        char[] chars = s.toCharArray();
+        int left = 0;
+        int right = chars.length - 1;
+
+        while (left < right) {
+            char temp = chars[left];
+            chars[left] = chars[right];
+            chars[right] = temp;
+            
+            left++;
+            right--;
+        }
+
+        return new String(chars);
+    }
+}
