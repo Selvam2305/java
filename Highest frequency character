@@ -1,0 +1,44 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        
+        // Check if input exists
+        if (!sc.hasNextLine()) {
+            return;
+        }
+        String str = sc.nextLine();
+        
+        // Edge case: Empty input string
+        if (str.length() == 0) {
+            return;
+        }
+        
+        // Step 1: Create a frequency array for all 256 possible ASCII characters
+        int[] freq = new int[256];
+        
+        // Step 2: Populate the frequency array
+        for (int i = 0; i < str.length(); i++) {
+            char ch = str.charAt(i);
+            freq[ch]++; // Increment the count at the index corresponding to the character's ASCII value
+        }
+        
+        // Step 3: Find the character with the maximum frequency
+        char maxChar = ' ';
+        int maxCount = -1;
+        
+        // We loop from 0 to 255. This automatically handles alphabetical/ASCII order sorting!
+        for (int i = 0; i < 256; i++) {
+            if (freq[i] > maxCount) {
+                maxCount = freq[i];
+                maxChar = (char) i;
+            }
+        }
+        
+        // Step 4: Print the result according to specifications
+        System.out.println(maxChar + " " + maxCount);
+        
+        sc.close();
+    }
+}
