@@ -1,0 +1,40 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        
+        // Read the input string if it exists
+        if (!sc.hasNext()) {
+            return;
+        }
+        String str = sc.next();
+        
+        // Handle empty string edge case
+        if (str == null || str.length() == 0) {
+            return;
+        }
+        
+        StringBuilder compressed = new StringBuilder();
+        int n = str.length();
+        
+        // Iterate through the string to perform RLE
+        for (int i = 0; i < n; i++) {
+            // Count occurrences of the current character
+            int count = 1;
+            while (i + 1 < n && str.charAt(i) == str.charAt(i + 1)) {
+                count++;
+                i++;
+            }
+            
+            // Append the character and its frequency count
+            compressed.append(str.charAt(i));
+            compressed.append(count);
+        }
+        
+        // Print the final compressed string
+        System.out.println(compressed.toString());
+        
+        sc.close();
+    }
+}
