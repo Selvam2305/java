@@ -1,0 +1,22 @@
+import java.util.Scanner;
+
+class MyRegex {
+    // Regular expression to match an IP address from 0.0.0.0 to 255.255.255.255
+    // allowing leading zeros (e.g., 000.12.12.034)
+    private static final String zeroTo255 = "(\\d{1,2}|(0|1)\\d{2}|2[0-4]\\d|25[0-5])";
+    
+    // Combine 4 groups separated by literal dots
+    public String pattern = "^" + zeroTo255 + "\\." + zeroTo255 + "\\." + zeroTo255 + "\\." + zeroTo255 + "$";
+}
+
+// Driver class to read input and verify output (HackerRank standard boilerplate)
+public class Solution {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        while (in.hasNext()) {
+            String IP = in.next();
+            System.out.println(IP.matches(new MyRegex().pattern));
+        }
+        in.close();
+    }
+}
