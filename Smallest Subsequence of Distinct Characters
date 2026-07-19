@@ -1,0 +1,35 @@
+import java.util.Arrays;
+
+public class Solution {
+    public String smallestSubsequence(String s) {
+        // Step 1: Find the last occurrence of each character
+        int[] lastIndex = new int[26];
+        for (int i = 0; i < s.length(); i++) {
+            lastIndex[s.charAt(i) - 'a'] = i;
+        }
+
+        // Step 2: Track characters currently in our result stack
+        boolean[] visited = new boolean[26];
+        
+        // Use StringBuilder as a stack
+        StringBuilder stack = new S…] = false;
+                stack.deleteCharAt(stack.length() - 1); // pop
+            }
+
+            // Push current character to stack and mark visited
+            stack.append(curr);
+            visited[currIdx] = true;
+        }
+
+        return stack.toString();
+    }
+
+    public static void main(String[] args) {
+        Solution sol = new Solution();
+        String input = "cbacdcbc";
+        System.out.println("Result: " + sol.smallestSubsequence(input)); // Output: acdb
+    }
+}
+
+        
+
