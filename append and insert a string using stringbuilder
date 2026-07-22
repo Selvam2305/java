@@ -1,0 +1,12 @@
+import java.util.*;
+public class Main{
+    public static void main(String[]args){
+        Scanner sc = new Scanner(System.in);
+        String s = sc.nextLine();
+        StringBuilder b = new StringBuilder(s);
+        b.append(" Welcome");
+        b.insert(5," Buddy");
+        String n = b.toString();
+        System.out.println(n);
+    }
+}
